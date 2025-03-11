@@ -50,15 +50,32 @@ const HomeSectionCarousel = ({ data, sectionName, category }) => {
         {sectionName}
       </h2>
       <div className="relative p-5">
-        <AliceCarousel
-          ref={carouselRef}
-          items={items}
-          disableButtonsControls
-          responsive={responsive}
-          disableDotsControls
-          infinite={false}
-          onSlideChanged={handleSlideChange}
-        />
+        <div
+          style={{
+            // width: "65%", // Default for Desktop (No changes)
+            ...(window.innerWidth < 768 && {
+              width: "60%", // Mobile: 70% width
+              maxWidth: "100%",
+              margin: "0 auto",
+            }),
+            ...(window.innerWidth >= 768 &&
+              window.innerWidth < 1024 && {
+                width: "80%", // Tablet: 80% width
+                maxWidth: "100%",
+                margin: "0 auto",
+              }),
+          }}
+        >
+          <AliceCarousel
+            ref={carouselRef}
+            items={items}
+            disableButtonsControls
+            responsive={responsive}
+            disableDotsControls
+            infinite={false}
+            onSlideChanged={handleSlideChange}
+          />
+        </div>
 
         {/* Next Button - Hidden on Last Slide */}
         {activeIndex < lastIndex && (
